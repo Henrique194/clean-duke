@@ -20,12 +20,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-#ifndef DISPLAY_H
-#define DISPLAY_H
+#ifndef VID_DISPLAY_H
+#define VID_DISPLAY_H
 
-#include "platform.h"
-#include "vid_mode.h"
-#include "vid_palette.h"
+#include "build/platform.h"
+#include "mode.h"
+#include "palette.h"
 
 /* set these in your _platform_init() implementation. */
 int _argc;

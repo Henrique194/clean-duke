@@ -24,7 +24,7 @@
 #include "con/con.h"
 #include "com_main.h"
 #include "com_parser.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "funct.h"
 
 i32 script[MAXSCRIPTSIZE];

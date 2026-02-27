@@ -23,7 +23,7 @@
 #include "vm_ops.h"
 #include "soundefs.h"
 #include "player.h"
-#include "engine.h"
+#include "build/engine.h"
 
 static void CON_ExitCameraView(player_t* plr) {
     // Exit camera.

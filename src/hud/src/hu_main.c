@@ -23,7 +23,7 @@
 #include "hu_draw.h"
 #include "audiolib/fx_man.h"
 #include "console/console.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "input/keyboard.h"
 #include "soundefs.h"
 #include "funct.h"

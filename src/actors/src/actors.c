@@ -23,7 +23,7 @@
 #include "duke3d.h"
 #include "actors/actors.h"
 #include "audiolib/fx_man.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "soundefs.h"
 #include "audiolib/sounds.h"
 #include "premap.h"

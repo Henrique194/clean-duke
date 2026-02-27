@@ -23,7 +23,7 @@
 #include "vm_ops.h"
 #include "names.h"
 #include "sector.h"
-#include "engine.h"
+#include "build/engine.h"
 
 static i16 CON_GetNearSector(const spritetype* spr) {
     i32 xs = spr->x;

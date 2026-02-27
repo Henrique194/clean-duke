@@ -22,7 +22,7 @@
 
 #include "vm_ops.h"
 #include "funct.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "soundefs.h"
 
 

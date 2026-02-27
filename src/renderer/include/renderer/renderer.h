@@ -24,7 +24,7 @@
 #define RENDERER_H
 
 #include "types.h"
-#include "build.h"
+#include "build/build.h"
 
 
 #define MAXWALLSB 2048

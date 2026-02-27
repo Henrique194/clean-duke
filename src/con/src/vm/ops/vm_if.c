@@ -23,7 +23,7 @@
 #include "vm_ops.h"
 #include "com_keyword.h"
 #include "names.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "actors/actors.h"
 
 void VM_IfElse(con_vm_t* vm, bool condition) {

@@ -21,7 +21,7 @@
  */
 
 #include "vm_ops.h"
-#include "engine.h"
+#include "build/engine.h"
 
 void VM_PlrStomp(con_vm_t* vm) {
     const spritetype* spr = vm->sprite;

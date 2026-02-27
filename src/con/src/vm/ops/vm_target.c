@@ -21,7 +21,7 @@
  */
 
 #include "vm_ops.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "funct.h"
 
 static void CON_GetShotParams(con_vm_t* vm, short* clip_dist, short* ang_dif) {

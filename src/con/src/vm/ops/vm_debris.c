@@ -21,7 +21,7 @@
  */
 
 #include "vm_ops.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "funct.h"
 #include "names.h"
 

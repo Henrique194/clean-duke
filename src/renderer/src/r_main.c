@@ -23,9 +23,9 @@
 
 #include "renderer/renderer.h"
 #include "renderer/draw.h"
-#include "platform.h"
-#include "build.h"
-#include "engine.h"
+#include "build/platform.h"
+#include "build/build.h"
+#include "build/engine.h"
 #include "video/display.h"
 #if WIN32
 #include "io.h"

@@ -22,8 +22,8 @@
 
 #include "vm_ops.h"
 #include "names.h"
-#include "fixedPoint_math.h"
-#include "tiles.h"
+#include "build/fixedPoint_math.h"
+#include "build/tiles.h"
 
 static void CON_RescaleX(con_vm_t* vm, i32 xrepeat) {
     spritetype* spr = vm->sprite;

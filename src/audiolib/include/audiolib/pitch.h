@@ -34,7 +34,7 @@
 #ifndef __PITCH_H
 #define __PITCH_H
 
-#include "../duke3d.h"
+#include "duke3d.h"
 
 enum PITCH_ERRORS
    {

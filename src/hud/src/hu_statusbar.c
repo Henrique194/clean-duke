@@ -21,7 +21,7 @@
  */
 
 #include "hu_text.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "soundefs.h"
 #include "funct.h"
 #include "video/display.h"

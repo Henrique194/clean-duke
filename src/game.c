@@ -41,7 +41,7 @@
 #include "audiolib/sndcards.h"
 #include "config/config.h"
 #include "console/console.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "global.h"
 #include "gamedefs.h"
 #include "input/keyboard.h"

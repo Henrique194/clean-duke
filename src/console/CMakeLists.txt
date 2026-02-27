@@ -3,9 +3,9 @@ set(LIB console)
 list(REMOVE_ITEM LIBS ${LIB})
 
 add_library(${LIB} STATIC
-	console.c
-	cvar_defs.c
-	cvars.c
+	src/console.c
+	src/cvar_defs.c
+	src/cvars.c
 )
 
 target_include_directories(${LIB} PRIVATE ${CMAKE_BINARY_DIR} "../")

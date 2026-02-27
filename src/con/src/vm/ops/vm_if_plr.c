@@ -23,7 +23,7 @@
 #include "vm_ops.h"
 #include "soundefs.h"
 #include "actors/actors.h"
-#include "engine.h"
+#include "build/engine.h"
 
 //
 // true if the player is standing (and not moving).

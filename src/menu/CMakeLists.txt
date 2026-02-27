@@ -3,9 +3,9 @@ set(LIB menu)
 list(REMOVE_ITEM LIBS ${LIB})
 
 add_library(${LIB} STATIC
-	animlib.c
-	animlib.h
-	menu.c
+	src/animlib.c
+	src/animlib.h
+	src/menu.c
 )
 
 target_include_directories(${LIB} PRIVATE ${CMAKE_BINARY_DIR} "../")

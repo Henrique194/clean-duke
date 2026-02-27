@@ -3,8 +3,8 @@ set(LIB rts)
 list(REMOVE_ITEM LIBS ${LIB})
 
 add_library(${LIB} STATIC
-	_rts.h
-	rts.c
+	src/_rts.h
+	src/rts.c
 )
 
 target_include_directories(${LIB} PRIVATE ${CMAKE_BINARY_DIR} "../")

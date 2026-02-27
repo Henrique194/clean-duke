@@ -21,7 +21,7 @@
  */
 
 #include "vm_main.h"
-#include "engine.h"
+#include "build/engine.h"
 
 static bool VM_CanDogeProjectile(const spritetype* spr, i16 proj_idx) {
     const spritetype* proj = &sprite[proj_idx];

@@ -23,7 +23,7 @@
 #include "vm_ops.h"
 #include "funct.h"
 #include "names.h"
-#include "engine.h"
+#include "build/engine.h"
 
 static void CON_SpawnGlass(i16 owner, i32 pic_offset) {
     const spritetype* spr_owner = &sprite[owner];

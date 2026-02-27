@@ -23,7 +23,7 @@
 #include "automap/am_draw.h"
 #include "am_overhead.h"
 #include "am_view.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "funct.h"
 
 typedef struct {

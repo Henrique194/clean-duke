@@ -21,7 +21,7 @@
  */
 
 #include "vm_ops.h"
-#include "fixedPoint_math.h"
+#include "build/fixedPoint_math.h"
 
 void VM_IfOnWater(con_vm_t* vm) {
     const spritetype* spr = vm->sprite;

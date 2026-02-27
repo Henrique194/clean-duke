@@ -21,7 +21,7 @@
  */
 
 #include "hu_draw.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "funct.h"
 #include "automap/am_draw.h"
 

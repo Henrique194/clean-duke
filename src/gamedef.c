@@ -28,7 +28,7 @@
 #include "duke3d.h"
 #include "gamedefs.h"
 #include "con/con.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "input/keyboard.h"
 #include "soundefs.h"
 #include "funct.h"

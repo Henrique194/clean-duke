@@ -7,8 +7,8 @@
 /* FCS: However did that work: This is far from perfect but you have my eternal respect !!! */
 
 #include "renderer/draw.h"
-#include "platform.h"
-#include "build.h"
+#include "build/platform.h"
+#include "build/build.h"
 
 #if RENDER_LIMIT_PIXELS
 int64_t pixelsAllowed = 10000000000;

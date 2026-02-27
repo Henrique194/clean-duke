@@ -34,7 +34,7 @@
 #ifndef __MUSIC_H
 #define __MUSIC_H
 
-#include "../duke3d.h"
+#include "duke3d.h"
 
 #include "sndcards.h"
 

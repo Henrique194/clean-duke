@@ -23,7 +23,7 @@
 #include "vm_ops.h"
 #include "player.h"
 #include "premap.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "input/control.h"
 #include "menu/menu.h"
 

@@ -24,7 +24,7 @@
 
 #include "renderer/renderer.h"
 #include "renderer/draw.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "video/display.h"
 #if WIN32
 #include "io.h"

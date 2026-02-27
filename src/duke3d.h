@@ -23,7 +23,7 @@
 #ifndef _INCL_DUKE3D_H_
 #define _INCL_DUKE3D_H_
 
-#include "build.h"
+#include "build/build.h"
 
 #ifndef MAX_PATH
 #ifdef MAXPATHLEN

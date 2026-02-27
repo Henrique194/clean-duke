@@ -3,7 +3,7 @@ set(LIB memory)
 list(REMOVE_ITEM LIBS ${LIB})
 
 add_library(${LIB} STATIC
-	cache.c
+	src/cache.c
 )
 
 target_include_directories(${LIB} PRIVATE ${CMAKE_BINARY_DIR} "../")

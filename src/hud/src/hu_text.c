@@ -23,8 +23,8 @@
 #include "hu_text.h"
 #include "funct.h"
 #include "names.h"
-#include "tiles.h"
-#include "engine.h"
+#include "build/tiles.h"
+#include "build/engine.h"
 
 #define MAXUSERQUOTES 4
 

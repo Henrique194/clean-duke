@@ -22,7 +22,7 @@
 
 #include "duke3d.h"
 #include "actors/actors.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "funct.h"
 
 int32_t numinterpolations = 0;

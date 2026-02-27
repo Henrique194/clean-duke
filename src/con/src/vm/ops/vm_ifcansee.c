@@ -21,7 +21,7 @@
  */
 
 #include "vm_ops.h"
-#include "engine.h"
+#include "build/engine.h"
 
 //
 // Finds a visible point near a target that the actor can see.

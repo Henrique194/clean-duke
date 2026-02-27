@@ -3,10 +3,10 @@ set(LIB input)
 list(REMOVE_ITEM LIBS ${LIB})
 
 add_library(${LIB} STATIC
-    control.c
-    joystick.c
-    keyboard.c
-    mouse.c
+    src/control.c
+    src/joystick.c
+    src/keyboard.c
+    src/mouse.c
 )
 
 target_include_directories(${LIB} PRIVATE ${CMAKE_BINARY_DIR} "../")

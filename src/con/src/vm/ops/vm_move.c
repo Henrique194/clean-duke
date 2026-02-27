@@ -21,7 +21,7 @@
  */
 
 #include "vm_ops.h"
-#include "engine.h"
+#include "build/engine.h"
 
 void VM_Move(con_vm_t* vm) {
     actor_state_t* actor = vm->actor;

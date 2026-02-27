@@ -21,7 +21,7 @@
  */
 
 #include "vm_ops.h"
-#include "engine.h"
+#include "build/engine.h"
 
 void VM_AI(con_vm_t* vm) {
     i32 ai_offset = VM_READ(vm);

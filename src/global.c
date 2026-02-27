@@ -35,7 +35,7 @@
 #include "duke3d.h"
 #include "global.h"
 #include "names.h"
-#include "platform.h"
+#include "build/platform.h"
 
 #include <errno.h>
 #include <time.h>

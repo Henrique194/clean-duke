@@ -22,8 +22,8 @@
 // automap drawing functions
 
 #include "am_view.h"
-#include "build.h"
-#include "engine.h"
+#include "build/build.h"
+#include "build/engine.h"
 #include "renderer/draw.h"
 #include "video/display.h"
 

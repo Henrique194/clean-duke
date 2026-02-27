@@ -4,16 +4,16 @@ list(REMOVE_ITEM LIBS ${LIB})
 
 # Source contains loads of files that are not used (only DOS). Delete them?
 add_library(${LIB} STATIC
-	dpmi.c
-	dsl.c
-	fx_man.c
-	ll_man.c
-	multivoc.c
-	mv_mix.c
-	mvreverb.c
-	pitch.c
-	sdl_midi.c
-	sounds.c
+	src/dpmi.c
+	src/dsl.c
+	src/fx_man.c
+	src/ll_man.c
+	src/multivoc.c
+	src/mv_mix.c
+	src/mvreverb.c
+	src/pitch.c
+	src/sdl_midi.c
+	src/sounds.c
 )
 
 target_include_directories(${LIB} PRIVATE ${CMAKE_BINARY_DIR} "../")

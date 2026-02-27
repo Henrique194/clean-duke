@@ -23,7 +23,7 @@
 #include "com_cmds.h"
 #include "com_misc.h"
 #include "com_parser.h"
-#include "filesystem.h"
+#include "build/filesystem.h"
 #include "funct.h"
 #include "global.h"
 

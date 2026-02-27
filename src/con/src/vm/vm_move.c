@@ -22,7 +22,7 @@
 
 #include "vm_main.h"
 #include "names.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "funct.h"
 
 

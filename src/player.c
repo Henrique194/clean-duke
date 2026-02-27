@@ -28,7 +28,7 @@
 #include "audiolib/fx_man.h"
 #include "config/config.h"
 #include "input/control.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "function.h"
 #include "audiolib/sounds.h"
 #include "soundefs.h"

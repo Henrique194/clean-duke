@@ -22,7 +22,7 @@
 
 #include "vm_main.h"
 #include "con/con.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "soundefs.h"
 #include "funct.h"
 

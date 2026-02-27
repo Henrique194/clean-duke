@@ -22,7 +22,7 @@
 
 #include "am_overhead.h"
 #include "names.h"
-#include "engine.h"
+#include "build/engine.h"
 #include "funct.h"
 
 static i32 xvect;

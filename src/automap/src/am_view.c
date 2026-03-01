@@ -672,8 +672,8 @@ static void AM_DrawSprites(i32 dax, i32 day, i32 sort_num) {
         }
 
         i32 k = spr->ang;
-        i32 cosang = sintable[(k + 512) & 2047];
-        i32 sinang = sintable[k];
+        i32 cosang = COS(k);
+        i32 sinang = SIN(k);
         i32 xspan = tiles[tilenum].dim.width;
         i32 xrepeat = spr->xrepeat;
         i32 yspan = tiles[tilenum].dim.height;

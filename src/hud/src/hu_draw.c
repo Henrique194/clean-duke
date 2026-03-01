@@ -33,8 +33,8 @@ static void HUD_MoveClouds(void) {
     cloudtotalclock = totalclock + 6;
     const short ang = ps[screenpeek].ang;
     for (short i = 0; i < numclouds; i++) {
-        cloudx[i] += (sintable[(ang + 512) & 2047] >> 9);
-        cloudy[i] += (sintable[ang & 2047] >> 9);
+        cloudx[i] += (COS(ang) >> 9);
+        cloudy[i] += (SIN(ang) >> 9);
 
         sector[clouds[i]].ceilingxpanning = cloudx[i] >> 6;
         sector[clouds[i]].ceilingypanning = cloudy[i] >> 6;

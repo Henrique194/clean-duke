@@ -1365,7 +1365,7 @@ static void parascan(int32_t dax1, int32_t dax2, int32_t sectnum,
                 for (j = pv_walls[z].screenSpaceCoo[0][VEC_COL];
                      j <= pv_walls[z].screenSpaceCoo[1][VEC_COL]; j++)
                     swplc[j] = mulscale14(
-                        sintable[((int32_t) radarang2[j] + 512) & 2047], n);
+                        COS((int32_t) radarang2[j]), n);
             } else
                 clearbuf(&swplc[pv_walls[z].screenSpaceCoo[0][VEC_COL]],
                          pv_walls[z].screenSpaceCoo[1][VEC_COL] - pv_walls[z].

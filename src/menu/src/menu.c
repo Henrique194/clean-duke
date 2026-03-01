@@ -139,9 +139,9 @@ void getangplayers(short snum)
             a = ps[snum].ang+getangle(ps[i].posx-ps[snum].posx,ps[i].posy-ps[snum].posy);
             a = a-1024;
             rotatesprite(
-                (320<<15) + (((sintable[(a+512)&2047])>>7)<<15),
-                (320<<15) - (((sintable[a&2047])>>8)<<15),
-                klabs(sintable[((a>>1)+768)&2047]<<2),0,APLAYER,0,ps[i].palookup,0,0,0,xdim-1,ydim-1);
+                (320<<15) + (((COS(a))>>7)<<15),
+                (320<<15) - (((SIN(a))>>8)<<15),
+                klabs(COS((a>>1) + ANG45)<<2),0,APLAYER,0,ps[i].palookup,0,0,0,xdim-1,ydim-1);
         }
     }
 }
@@ -1349,7 +1349,7 @@ void menus(void)
 
     x = 0;
 
-    sh = 4-(sintable[(totalclock<<4)&2047]>>11);
+    sh = 4-(SIN(totalclock << 4)>>11);
 
     if(!(current_menu >= 1000 && current_menu <= 2999 && current_menu >= 300 && current_menu <= 369))
         P_ViewChanged();
@@ -1929,7 +1929,7 @@ void menus(void)
         case 0: // main menu
             c = (320>>1);
             rotatesprite(c<<16,28<<16,65536L,0,INGAMEDUKETHREEDEE,0,0,10,0,0,xdim-1,ydim-1);
-            rotatesprite((c+100)<<16,36<<16,65536L,0,PLUTOPAKSPRITE+2,(sintable[(totalclock<<4)&2047]>>11),0,2+8,0,0,xdim-1,ydim-1);
+            rotatesprite((c+100)<<16,36<<16,65536L,0,PLUTOPAKSPRITE+2,(SIN(totalclock << 4)>>11),0,2+8,0,0,xdim-1,ydim-1);
             
 			x = probe(c,67,16,6);
 
@@ -2005,7 +2005,7 @@ else
         case 50: // general menu as cmenu(0) but for multiplayer games
             c = (320>>1);
             rotatesprite(c<<16,32<<16,65536L,0,INGAMEDUKETHREEDEE,0,0,10,0,0,xdim-1,ydim-1);
-            rotatesprite((c+100)<<16,36<<16,65536L,0,PLUTOPAKSPRITE+2,(sintable[(totalclock<<4)&2047]>>11),0,2+8,0,0,xdim-1,ydim-1);
+            rotatesprite((c+100)<<16,36<<16,65536L,0,PLUTOPAKSPRITE+2,(SIN(totalclock << 4)>>11),0,2+8,0,0,xdim-1,ydim-1);
             x = probe(c,67,16,7);
             switch(x)
             {
@@ -2193,7 +2193,7 @@ else
 					// uncomment this for usermap
 					//menutext(160,60+20+20+20+20,SHX(-6),PHX(-6),"USER MAP");
 		           
-					//gametextpal(160,60+20+20+20+20+3,boardfilename,16+(sintable[(totalclock<<4)&2047]>>11),2);
+					//gametextpal(160,60+20+20+20+20+3,boardfilename,16+(SIN(totalclock << 4)>>11),2);
 					//}
 				}
 				else

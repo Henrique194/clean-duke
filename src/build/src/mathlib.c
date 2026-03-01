@@ -101,8 +101,8 @@ void rotatepoint(int32_t xpivot, int32_t ypivot, int32_t x, int32_t y,
                  short daang, int32_t* x2, int32_t* y2) {
     int32_t dacos, dasin;
 
-    dacos = sintable[(daang + 2560) & 2047];
-    dasin = sintable[(daang + 2048) & 2047];
+    dacos = COS(daang);
+    dasin = SIN(daang);
     x -= xpivot;
     y -= ypivot;
     *x2 = dmulscale14(x, dacos, -y, dasin) + xpivot;

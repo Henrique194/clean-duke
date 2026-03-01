@@ -96,8 +96,8 @@ static void AM_DrawWallSprite(const spritetype* spr, i32 posx, i32 posy, u8 col)
     if ((spr->cstat & 4) > 0) {
         xoff = -xoff;
     }
-    i32 dax = sintable[spr->ang & 2047] * spr->xrepeat;
-    i32 day = sintable[(spr->ang + 1536) & 2047] * spr->xrepeat;
+    i32 dax = SIN(spr->ang) * spr->xrepeat;
+    i32 day = SIN(spr->ang + ANG270) * spr->xrepeat;
     i32 l = tiles[tilenum].dim.width;
     i32 k = (l >> 1) + xoff;
     i32 x1 = spr->x - mulscale16(dax, k);
@@ -130,8 +130,8 @@ static void AM_DrawFloorSprite(const spritetype* spr, i32 posx, i32 posy, u8 col
     }
 
     i32 k = spr->ang;
-    i32 cosang = sintable[(k + 512) & 2047];
-    i32 sinang = sintable[k];
+    i32 cosang = COS(k);
+    i32 sinang = SIN(k);
     i32 xspan = tiles[tilenum].dim.width;
     i32 xrepeat = spr->xrepeat;
     i32 yspan = tiles[tilenum].dim.height;

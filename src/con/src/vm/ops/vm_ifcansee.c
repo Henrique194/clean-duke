@@ -55,7 +55,7 @@ static short furthestcanseepoint(const con_vm_t* vm, spritetype* ts, i32* dax, i
 
     for (j = ts->ang; j < (2048 + ts->ang); j += (angincs - (TRAND & 511))) {
         PHYS_Hitscan(ts->x, ts->y, ts->z - (16 << 8), ts->sectnum,
-                sintable[(j + 512) & 2047], sintable[j & 2047],
+                COS(j), SIN(j),
                 16384 - (TRAND & 32767), &hitsect, &hitwall, &hitspr, &hx, &hy,
                 &hz, CLIPMASK1);
 

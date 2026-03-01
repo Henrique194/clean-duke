@@ -488,8 +488,8 @@ short P_SetSprite(short i, uint32_t cliptype) //The set sprite function
     s = &sprite[i];
 
     movetype = P_MoveSprite(
-        i, (s->xvel * (sintable[(s->ang + 512) & 2047])) >> 14,
-        (s->xvel * (sintable[s->ang & 2047])) >> 14, s->zvel, cliptype);
+        i, (s->xvel * (COS(s->ang))) >> 14,
+        (s->xvel * (SIN(s->ang))) >> 14, s->zvel, cliptype);
 
     return (movetype == 0);
 }
@@ -616,8 +616,8 @@ void P_MoveSprites(short i) {
 
     s = &sprite[i];
 
-    s->x += (s->xvel * (sintable[(s->ang + 512) & 2047])) >> 14;
-    s->y += (s->xvel * (sintable[s->ang & 2047])) >> 14;
+    s->x += (s->xvel * (COS(s->ang))) >> 14;
+    s->y += (s->xvel * (SIN(s->ang))) >> 14;
 
     j = T2;
     k = T3;
@@ -780,19 +780,19 @@ short P_IfHitByWeapon(short sn) {
                     case EXPLODINGBARREL:
                         ps[p].posxv +=
                             hittype[sn].extra
-                                * (sintable[(hittype[sn].ang + 512) & 2047])
+                                * (COS(hittype[sn].ang))
                             << 2;
                         ps[p].posyv += hittype[sn].extra
-                                           * (sintable[hittype[sn].ang & 2047])
+                                           * (SIN(hittype[sn].ang))
                                        << 2;
                         break;
                     default:
                         ps[p].posxv +=
                             hittype[sn].extra
-                                * (sintable[(hittype[sn].ang + 512) & 2047])
+                                * (COS(hittype[sn].ang))
                             << 1;
                         ps[p].posyv += hittype[sn].extra
-                                           * (sintable[hittype[sn].ang & 2047])
+                                           * (SIN(hittype[sn].ang))
                                        << 1;
                         break;
                 }
@@ -827,7 +827,7 @@ void P_MoveCyclers(void) {
         s = c[0];
 
         t = c[3];
-        j = t + (sintable[c[1] & 2047] >> 10);
+        j = t + (SIN(c[1]) >> 10);
         cshade = c[2];
 
         if (j < cshade)
@@ -1355,9 +1355,9 @@ void P_MoveStandables(void) {
                     s->zvel = 0;
                 } else if (s->owner == -2) {
                     ps[p].oposx = ps[p].posx =
-                        s->x - (sintable[(ps[p].ang + 512) & 2047] >> 6);
+                        s->x - (COS(ps[p].ang) >> 6);
                     ps[p].oposy = ps[p].posy =
-                        s->y - (sintable[ps[p].ang & 2047] >> 6);
+                        s->y - (SIN(ps[p].ang) >> 6);
                     ps[p].oposz = ps[p].posz = s->z + (2 << 8);
                     B_SetSprite(ps[p].i, ps[p].posx, ps[p].posy, ps[p].posz);
                     ps[p].cursectnum = sprite[ps[p].i].sectnum;
@@ -1476,8 +1476,8 @@ void P_MoveStandables(void) {
 
                 T4 = s->x;
                 T5 = s->y;
-                s->x += sintable[(T6 + 512) & 2047] >> 9;
-                s->y += sintable[(T6) & 2047] >> 9;
+                s->x += COS(T6) >> 9;
+                s->y += SIN(T6) >> 9;
                 s->z -= (3 << 8);
                 B_SetSprite(i, s->x, s->y, s->z);
 
@@ -1495,8 +1495,8 @@ void P_MoveStandables(void) {
                     sprite[j].hitag = s->hitag;
                     hittype[j].temp_data[1] = sprite[j].z;
 
-                    s->x += sintable[(T6 + 512) & 2047] >> 4;
-                    s->y += sintable[(T6) & 2047] >> 4;
+                    s->x += COS(T6) >> 4;
+                    s->y += SIN(T6) >> 4;
 
                     if (x < 1024) {
                         sprite[j].xrepeat = x >> 5;
@@ -1523,8 +1523,8 @@ void P_MoveStandables(void) {
 
                 T4 = s->x;
                 T5 = s->y;
-                s->x += sintable[(T6 + 512) & 2047] >> 9;
-                s->y += sintable[(T6) & 2047] >> 9;
+                s->x += COS(T6) >> 9;
+                s->y += SIN(T6) >> 9;
                 s->z -= (3 << 8);
                 B_SetSprite(i, s->x, s->y, s->z);
 
@@ -2015,8 +2015,8 @@ void P_Bounce(short i) {
     short hitsect;
     spritetype* s = &sprite[i];
 
-    xvect = mulscale10(s->xvel, sintable[(s->ang + 512) & 2047]);
-    yvect = mulscale10(s->xvel, sintable[s->ang & 2047]);
+    xvect = mulscale10(s->xvel, COS(s->ang));
+    yvect = mulscale10(s->xvel, SIN(s->ang));
     zvect = s->zvel;
 
     hitsect = s->sectnum;
@@ -2030,8 +2030,8 @@ void P_Bounce(short i) {
     else
         k = sector[hitsect].floorheinum;
 
-    dax = mulscale14(k, sintable[(daang) & 2047]);
-    day = mulscale14(k, sintable[(daang + 1536) & 2047]);
+    dax = mulscale14(k, SIN(daang));
+    day = mulscale14(k, SIN(daang + ANG270));
     daz = 4096;
 
     k = xvect * dax + yvect * day + zvect * daz;
@@ -2071,7 +2071,7 @@ void P_MoveWeapons(void) {
             case KNEE:
                 KILLIT(i);
             case TONGUE:
-                T1 = sintable[(T2) & 2047] >> 9;
+                T1 = SIN(T2) >> 9;
                 T2 += 32;
                 if (T2 > 2047)
                     KILLIT(i);
@@ -2087,16 +2087,16 @@ void P_MoveWeapons(void) {
                     s->z = sprite[s->owner].z - (34 << 8);
                 for (k = 0; k < T1; k++) {
                     q = EGS(s->sectnum,
-                            s->x + ((k * sintable[(s->ang + 512) & 2047]) >> 9),
-                            s->y + ((k * sintable[s->ang & 2047]) >> 9),
+                            s->x + ((k * COS(s->ang)) >> 9),
+                            s->y + ((k * SIN(s->ang)) >> 9),
                             s->z + ((k * ksgn(s->zvel)) * klabs(s->zvel / 12)),
                             TONGUE, -40 + (k << 1), 8, 8, 0, 0, 0, i, 5);
                     sprite[q].cstat = 128;
                     sprite[q].pal = 8;
                 }
                 q = EGS(s->sectnum,
-                        s->x + ((k * sintable[(s->ang + 512) & 2047]) >> 9),
-                        s->y + ((k * sintable[s->ang & 2047]) >> 9),
+                        s->x + ((k * COS(s->ang)) >> 9),
+                        s->y + ((k * SIN(s->ang)) >> 9),
                         s->z + ((k * ksgn(s->zvel)) * klabs(s->zvel / 12)),
                         INNERJAW, -40, 32, 32, 0, 0, 0, i, 5);
                 sprite[q].cstat = 128;
@@ -2151,8 +2151,8 @@ void P_MoveWeapons(void) {
                 }
 
                 j = P_MoveSprite(i,
-                                 (k * (sintable[(s->ang + 512) & 2047])) >> 14,
-                                 (k * (sintable[s->ang & 2047])) >> 14, ll, qq);
+                                 (k * (COS(s->ang))) >> 14,
+                                 (k * (SIN(s->ang))) >> 14, ll, qq);
 
                 if (s->picnum == RPG && s->yvel >= 0)
                     if (FindDistance2D(s->x - sprite[s->yvel].x,
@@ -2183,8 +2183,8 @@ void P_MoveWeapons(void) {
                     for (k = -3; k < 2; k++) {
                         x = EGS(
                             s->sectnum,
-                            s->x + ((k * sintable[(s->ang + 512) & 2047]) >> 9),
-                            s->y + ((k * sintable[s->ang & 2047]) >> 9),
+                            s->x + ((k * COS(s->ang)) >> 9),
+                            s->y + ((k * SIN(s->ang)) >> 9),
                             s->z + ((k * ksgn(s->zvel)) * klabs(s->zvel / 24)),
                             FIRELASER, -40 + (k << 2), s->xrepeat, s->yrepeat,
                             0, 0, 0, s->owner, 5);
@@ -2844,7 +2844,7 @@ void P_MoveActors(void) {
                     if ((TRAND & 255) < 3)
                         spritesound(RATTY, i);
                     s->ang += (TRAND & 31) - 15
-                              + (sintable[(t[0] << 8) & 2047] >> 11);
+                              + (SIN(t[0] << 8) >> 11);
                 }
                 else {
                     T1++;
@@ -2871,10 +2871,10 @@ void P_MoveActors(void) {
 
                     j = PHYS_ClipMove(
                         &s->x, &s->y, &s->z, &s->sectnum,
-                        (((s->xvel * (sintable[(s->ang + 512) & 2047])) >> 14)
+                        (((s->xvel * (COS(s->ang))) >> 14)
                          * TICSPERFRAME)
                             << 11,
-                        (((s->xvel * (sintable[s->ang & 2047])) >> 14)
+                        (((s->xvel * (SIN(s->ang))) >> 14)
                          * TICSPERFRAME)
                             << 11,
                         24L, (4 << 8), (4 << 8), CLIPMASK1);
@@ -2956,8 +2956,8 @@ void P_MoveActors(void) {
                             sprite[k].cstat = 257 + 128;
                             sprite[k].clipdist = 64;
                             sprite[k].ang = j;
-                            sprite[k].zvel = sintable[l & 2047] >> 5;
-                            sprite[k].xvel = sintable[(l + 512) & 2047] >> 9;
+                            sprite[k].zvel = SIN(l) >> 5;
+                            sprite[k].xvel = COS(l) >> 9;
                             sprite[k].owner = i;
                         }
                 }
@@ -3351,12 +3351,12 @@ void P_MoveActors(void) {
                             t[3] = 1;
                     }
 
-                    s->xrepeat = 20 + (sintable[t[1] & 2047] >> 13);
-                    s->yrepeat = 15 + (sintable[t[1] & 2047] >> 13);
+                    s->xrepeat = 20 + (SIN(t[1]) >> 13);
+                    s->yrepeat = 15 + (SIN(t[1]) >> 13);
 
                     s->x =
-                        ps[p].posx + (sintable[(ps[p].ang + 512) & 2047] >> 7);
-                    s->y = ps[p].posy + (sintable[ps[p].ang & 2047] >> 7);
+                        ps[p].posx + (COS(ps[p].ang) >> 7);
+                    s->y = ps[p].posy + (SIN(ps[p].ang) >> 7);
 
                     goto BOLT;
                 }
@@ -3435,8 +3435,8 @@ void P_MoveActors(void) {
                     l = sprite[t[5]].ang;
 
                     s->z = sprite[t[5]].z;
-                    s->x = sprite[t[5]].x + (sintable[(l + 512) & 2047] >> 11);
-                    s->y = sprite[t[5]].y + (sintable[l & 2047] >> 11);
+                    s->x = sprite[t[5]].x + (COS(l) >> 11);
+                    s->y = sprite[t[5]].y + (SIN(l) >> 11);
 
                     s->picnum = GREENSLIME + 2 + (global_random & 1);
 
@@ -3512,7 +3512,7 @@ void P_MoveActors(void) {
                     } else {
                         if (s->xvel < 32)
                             s->xvel += 4;
-                        s->xvel = 64 - (sintable[(t[1] + 512) & 2047] >> 9);
+                        s->xvel = 64 - (COS(t[1]) >> 9);
 
                         s->ang +=
                             getincangle(s->ang, getangle(ps[p].posx - s->x,
@@ -3521,8 +3521,8 @@ void P_MoveActors(void) {
                         // TJR
                     }
 
-                    s->xrepeat = 36 + (sintable[(t[1] + 512) & 2047] >> 11);
-                    s->yrepeat = 16 + (sintable[t[1] & 2047] >> 13);
+                    s->xrepeat = 36 + (COS(t[1]) >> 11);
+                    s->yrepeat = 16 + (SIN(t[1]) >> 13);
 
                     if (rnd(4) && (sector[sect].ceilingstat & 1) == 0
                         && klabs(hittype[i].floorz - hittype[i].ceilingz)
@@ -3630,8 +3630,8 @@ void P_MoveActors(void) {
                 }
 
                 j = P_MoveSprite(
-                    i, (s->xvel * (sintable[(s->ang + 512) & 2047])) >> 14,
-                    (s->xvel * (sintable[s->ang & 2047])) >> 14, s->zvel,
+                    i, (s->xvel * (COS(s->ang))) >> 14,
+                    (s->xvel * (SIN(s->ang))) >> 14, s->zvel,
                     CLIPMASK0);
 
                 if (sector[SECT].lotag == 1 && s->zvel == 0) {
@@ -4129,7 +4129,7 @@ void P_MoveExplosions(void) // STATNUM 5
             case MAIL:
             case PAPER:
 
-                s->xvel = (TRAND & 7) + (sintable[T1 & 2047] >> 9);
+                s->xvel = (TRAND & 7) + (SIN(T1) >> 9);
                 T1 += (TRAND & 63);
                 if ((T1 & 2047) > 512 && (T1 & 2047) < 1596) {
                     if (sector[sect].lotag == 2) {
@@ -4234,8 +4234,8 @@ void P_MoveExplosions(void) // STATNUM 5
                             s->zvel += gc - 50;
                     }
 
-                    s->x += (s->xvel * sintable[(s->ang + 512) & 2047]) >> 14;
-                    s->y += (s->xvel * sintable[s->ang & 2047]) >> 14;
+                    s->x += (s->xvel * COS(s->ang)) >> 14;
+                    s->y += (s->xvel * SIN(s->ang)) >> 14;
                     s->z += s->zvel;
 
                 } else {
@@ -4457,8 +4457,8 @@ void P_MoveExplosions(void) // STATNUM 5
                 }
                 if (s->zvel < 4096)
                     s->zvel += gc - 50;
-                s->x += (s->xvel * sintable[(s->ang + 512) & 2047]) >> 14;
-                s->y += (s->xvel * sintable[s->ang & 2047]) >> 14;
+                s->x += (s->xvel * COS(s->ang)) >> 14;
+                s->y += (s->xvel * SIN(s->ang)) >> 14;
                 s->z += s->zvel;
             } else {
                 if (s->picnum == SCRAP1 && s->yvel > 0) {
@@ -4804,8 +4804,8 @@ void P_MoveEffectors(void) //STATNUM 3
                                 }
                     }
 
-                    m = (s->xvel * sintable[(s->ang + 512) & 2047]) >> 14;
-                    x = (s->xvel * sintable[s->ang & 2047]) >> 14;
+                    m = (s->xvel * COS(s->ang)) >> 14;
+                    x = (s->xvel * SIN(s->ang)) >> 14;
 
                     for (p = connecthead; p >= 0; p = connectpoint2[p])
                         if (sector[ps[p].cursectnum].lotag != 2) {
@@ -4950,8 +4950,8 @@ void P_MoveEffectors(void) //STATNUM 3
                 }
 
                 if (s->xvel) {
-                    l = (s->xvel * sintable[(s->ang + 512) & 2047]) >> 14;
-                    x = (s->xvel * sintable[s->ang & 2047]) >> 14;
+                    l = (s->xvel * COS(s->ang)) >> 14;
+                    x = (s->xvel * SIN(s->ang)) >> 14;
 
                     if ((sc->floorz - sc->ceilingz) < (108 << 8))
                         if (ud.clipping == 0)
@@ -5095,8 +5095,8 @@ void P_MoveEffectors(void) //STATNUM 3
                                 (sgn(t[5] - sc->floorheinum) << 4);
                     }
 
-                    m = (s->xvel * sintable[(s->ang + 512) & 2047]) >> 14;
-                    x = (s->xvel * sintable[s->ang & 2047]) >> 14;
+                    m = (s->xvel * COS(s->ang)) >> 14;
+                    x = (s->xvel * SIN(s->ang)) >> 14;
 
 
                     for (p = connecthead; p >= 0; p = connectpoint2[p])
@@ -5919,8 +5919,8 @@ void P_MoveEffectors(void) //STATNUM 3
 
                 if (s->xvel) //Moving
                 {
-                    x = (s->xvel * sintable[(s->ang + 512) & 2047]) >> 14;
-                    l = (s->xvel * sintable[s->ang & 2047]) >> 14;
+                    x = (s->xvel * COS(s->ang)) >> 14;
+                    l = (s->xvel * SIN(s->ang)) >> 14;
 
                     t[3] += s->xvel;
 
@@ -6020,8 +6020,8 @@ void P_MoveEffectors(void) //STATNUM 3
                 if (t[4])
                     break;
 
-                x = (SP * sintable[(s->ang + 512) & 2047]) >> 18;
-                l = (SP * sintable[s->ang & 2047]) >> 18;
+                x = (SP * COS(s->ang)) >> 18;
+                l = (SP * SIN(s->ang)) >> 18;
 
                 k = 0;
 
@@ -6157,8 +6157,8 @@ void P_MoveEffectors(void) //STATNUM 3
             case 26:
 
                 s->xvel = 32;
-                l = (s->xvel * sintable[(s->ang + 512) & 2047]) >> 14;
-                x = (s->xvel * sintable[s->ang & 2047]) >> 14;
+                l = (s->xvel * COS(s->ang)) >> 14;
+                x = (s->xvel * SIN(s->ang)) >> 14;
 
                 s->shade++;
                 if (s->shade > 7) {
@@ -6334,7 +6334,7 @@ void P_MoveEffectors(void) //STATNUM 3
                 break;
             case 29:
                 s->hitag += 64;
-                l = mulscale12((int32_t) s->yvel, sintable[s->hitag & 2047]);
+                l = mulscale12((int32_t) s->yvel, SIN(s->hitag));
                 sc->floorz = s->z + l;
                 break;
             case 31: // True Drop Floor

@@ -206,8 +206,8 @@ void dorotatesprite(
     if (dastat & 4)
         yoff = tileHeight - yoff;
 
-    cosang = sintable[(a + 512) & 2047];
-    sinang = sintable[a & 2047];
+    cosang = COS(a);
+    sinang = SIN(a);
 
     if ((dastat & 2) != 0) /* Auto window size scaling */
     {
@@ -1538,8 +1538,8 @@ static void R_DrawSprite(int32_t snum) {
         spriteDim.width = tiles[tilenum].dim.width;
         spriteDim.height = tiles[tilenum].dim.height;
 
-        xv = tspr->xrepeat * sintable[(tspr->ang + 2560 + 1536) & 2047];
-        yv = tspr->xrepeat * sintable[(tspr->ang + 2048 + 1536) & 2047];
+        xv = tspr->xrepeat * COS(tspr->ang + ANG270);
+        yv = tspr->xrepeat * SIN(tspr->ang + ANG270);
         i = (spriteDim.width >> 1) + xoff;
         x1 = tspr->x - globalposx - mulscale16(xv, i);
         x2 = x1 + mulscale16(xv, spriteDim.width);
@@ -1880,8 +1880,8 @@ static void R_DrawSprite(int32_t snum) {
 
         /* Get top-left corner */
         i = ((tspr->ang + 2048 - globalang) & 2047);
-        cosang = sintable[(i + 512) & 2047];
-        sinang = sintable[i];
+        cosang = COS(i);
+        sinang = SIN(i);
         dax = ((spriteDim.width >> 1) + xoff) * tspr->xrepeat;
         day = ((spriteDim.height >> 1) + yoff) * tspr->yrepeat;
         rzi[0] += dmulscale12(sinang, dax, cosang, day);

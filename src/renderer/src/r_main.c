@@ -582,8 +582,8 @@ void drawrooms(
     globalcursectnum = cursectnum;
     totalclocklock = totalclock;
 
-    cosglobalang = sintable[(globalang + 512) & 2047];
-    singlobalang = sintable[globalang & 2047];
+    cosglobalang = COS(globalang);
+    singlobalang = SIN(globalang);
     cosviewingrangeglobalang = mulscale16(cosglobalang, viewingrange);
     sinviewingrangeglobalang = mulscale16(singlobalang, viewingrange);
 

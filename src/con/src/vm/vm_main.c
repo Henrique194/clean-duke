@@ -62,7 +62,7 @@ short furthestangle(short i, short angs) {
 
     for (j = s->ang; j < (2048 + s->ang); j += angincs) {
         PHYS_Hitscan(s->x, s->y, s->z - (8 << 8), s->sectnum,
-                sintable[(j + 512) & 2047], sintable[j & 2047], 0, &hitsect,
+                COS(j), SIN(j), 0, &hitsect,
                 &hitwall, &hitspr, &hx, &hy, &hz, CLIPMASK1);
 
         d = klabs(hx - s->x) + klabs(hy - s->y);

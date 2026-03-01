@@ -385,7 +385,7 @@ void move(con_vm_t* vm) {
                 }
             }
         }
-        hittype[g_i].movflag = P_MoveSprite(g_i, (daxvel * (sintable[(angdif + 512) & 2047])) >> 14, (daxvel * (sintable[angdif & 2047])) >> 14, spr->zvel, CLIPMASK0);
+        hittype[g_i].movflag = P_MoveSprite(g_i, (daxvel * (COS(angdif))) >> 14, (daxvel * (SIN(angdif))) >> 14, spr->zvel, CLIPMASK0);
     }
 
     if (a) {

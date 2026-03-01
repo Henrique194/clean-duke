@@ -547,8 +547,8 @@ int PHYS_ClipMove(
                             xoff = -xoff;
                         k = spr->ang;
                         l = spr->xrepeat;
-                        dax = sintable[k & 2047] * l;
-                        day = sintable[(k + 1536) & 2047] * l;
+                        dax = SIN(k) * l;
+                        day = SIN(k + ANG270) * l;
                         l = tiles[tilenum].dim.width;
                         k = (l >> 1) + xoff;
                         x1 -= mulscale16(dax, k);
@@ -558,9 +558,9 @@ int PHYS_ClipMove(
                         if (clipinsideboxline(cx, cy, x1, y1, x2, y2, rad) !=
                             0) {
                             dax = mulscale14(
-                                sintable[(spr->ang + 256 + 512) & 2047],
+                                COS(spr->ang + ANG45),
                                 walldist);
-                            day = mulscale14(sintable[(spr->ang + 256) & 2047],
+                            day = mulscale14(SIN(spr->ang + ANG45),
                                              walldist);
 
                             if ((x1 - (*x)) * (y2 - (*y)) >= (x2 - (*x)) * (
@@ -610,8 +610,8 @@ int PHYS_ClipMove(
                             yoff = -yoff;
 
                         k = spr->ang;
-                        cosang = sintable[(k + 512) & 2047];
-                        sinang = sintable[k];
+                        cosang = COS(k);
+                        sinang = SIN(k);
                         xspan = tiles[tilenum].dim.width;
                         xrepeat = spr->xrepeat;
                         yspan = tiles[tilenum].dim.height;
@@ -633,8 +633,8 @@ int PHYS_ClipMove(
                         ryi[3] = ryi[0] + k;
 
                         dax = mulscale14(
-                            sintable[(spr->ang - 256 + 512) & 2047], walldist);
-                        day = mulscale14(sintable[(spr->ang - 256) & 2047],
+                            COS(spr->ang - ANG45), walldist);
+                        day = mulscale14(SIN(spr->ang - ANG45),
                                          walldist);
 
                         if ((rxi[0] - (*x)) * (ryi[1] - (*y)) < (rxi[1] - (*x))
@@ -850,8 +850,8 @@ int PHYS_PushMove(
                     if (j != 0) {
                         j = getangle(wall[wal->point2].x - wal->x,
                                      wall[wal->point2].y - wal->y);
-                        dx = (sintable[(j + 1024) & 2047] >> 11);
-                        dy = (sintable[(j + 512) & 2047] >> 11);
+                        dx = (SIN(j + ANG180) >> 11);
+                        dy = (COS(j) >> 11);
                         bad2 = 16;
                         do {
                             *x = (*x) + dx;
@@ -1058,8 +1058,8 @@ void PHYS_GetZRange(
                             xoff = -xoff;
                         k = spr->ang;
                         l = spr->xrepeat;
-                        dax = sintable[k & 2047] * l;
-                        day = sintable[(k + 1536) & 2047] * l;
+                        dax = SIN(k) * l;
+                        day = SIN(k + ANG270) * l;
                         l = tiles[tilenum].dim.width;
                         k = (l >> 1) + xoff;
                         x1 -= mulscale16(dax, k);
@@ -1105,8 +1105,8 @@ void PHYS_GetZRange(
                             yoff = -yoff;
 
                         ang = spr->ang;
-                        cosang = sintable[(ang + 512) & 2047];
-                        sinang = sintable[ang];
+                        cosang = COS(ang);
+                        sinang = SIN(ang);
                         xspan = tiles[tilenum].dim.width;
                         xrepeat = spr->xrepeat;
                         yspan = tiles[tilenum].dim.height;
@@ -1128,9 +1128,9 @@ void PHYS_GetZRange(
                         y4 = y1 + k;
 
                         dax = mulscale14(
-                            sintable[(spr->ang - 256 + 512) & 2047],
+                            COS(spr->ang - ANG45),
                             walldist + 4);
-                        day = mulscale14(sintable[(spr->ang - 256) & 2047],
+                        day = mulscale14(SIN(spr->ang - ANG45),
                                          walldist + 4);
                         x1 += dax;
                         x2 -= day;
@@ -1438,8 +1438,8 @@ int PHYS_Hitscan(
                         xoff = -xoff;
                     k = spr->ang;
                     l = spr->xrepeat;
-                    dax = sintable[k & 2047] * l;
-                    day = sintable[(k + 1536) & 2047] * l;
+                    dax = SIN(k) * l;
+                    day = SIN(k + ANG270) * l;
                     l = tiles[tilenum].dim.width;
                     k = (l >> 1) + xoff;
                     x1 -= mulscale16(dax, k);
@@ -1509,8 +1509,8 @@ int PHYS_Hitscan(
                         yoff = -yoff;
 
                     ang = spr->ang;
-                    cosang = sintable[(ang + 512) & 2047];
-                    sinang = sintable[ang];
+                    cosang = COS(ang);
+                    sinang = SIN(ang);
                     xspan = tiles[tilenum].dim.width;
                     xrepeat = spr->xrepeat;
                     yspan = tiles[tilenum].dim.height;
@@ -1608,9 +1608,9 @@ int PHYS_NearTag(
     if ((tagsearch < 1) || (tagsearch > 3))
         return (0);
 
-    vx = mulscale14(sintable[(ange + 2560) & 2047], neartagrange);
+    vx = mulscale14(COS(ange), neartagrange);
     xe = xs + vx;
-    vy = mulscale14(sintable[(ange + 2048) & 2047], neartagrange);
+    vy = mulscale14(SIN(ange), neartagrange);
     ye = ys + vy;
     vz = 0;
     ze = 0;
@@ -1658,8 +1658,8 @@ int PHYS_NearTag(
                     if (good & 2)
                         *neartagwall = z;
                     *neartaghitdist = dmulscale14(
-                        intx - xs, sintable[(ange + 2560) & 2047], inty - ys,
-                        sintable[(ange + 2048) & 2047]);
+                        intx - xs, COS(ange), inty - ys,
+                        SIN(ange));
                     xe = intx;
                     ye = inty;
                     ze = intz;
@@ -1715,9 +1715,9 @@ int PHYS_NearTag(
                                     *neartagsprite = z;
                                     *neartaghitdist = dmulscale14(
                                         intx - xs,
-                                        sintable[(ange + 2560) & 2047],
+                                        COS(ange),
                                         inty - ys,
-                                        sintable[(ange + 2048) & 2047]);
+                                        SIN(ange));
                                     xe = intx;
                                     ye = inty;
                                     ze = intz;
